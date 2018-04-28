@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vellyasu</title>
+    <%= render 'layouts/rails_default' %>
+  </head>
+
+  <body>
+    <%= render 'layouts/header' %>
+    <p class = "notice"><%= notice %></p>
+    <p class = "alert"><%= alert %></p>
+
+    <%= yield %>
+
+    <%= debug(params) if Rails.env.development? %>
+  </body>
+</html>
