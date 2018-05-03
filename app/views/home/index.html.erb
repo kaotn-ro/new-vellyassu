@@ -6,13 +6,13 @@
 <nav>
   <% if user_signed_in? %>
     <% if @worktime.present? %>
-      <%= link_to worktime_path(@worktime, params: {worktimes: {end_time: Time.now}}), method: :patch do %>
+      <%= link_to worktime_path(@worktime, params: {worktime: {end_time: Time.now}}), method: :patch do %>
         <div class="btn btn-default">退勤</div>
       <% end %>
-      <%= link_to worktime_path(@worktime, params: {worktimes: {start_breaktime: Time.now, end_breaktime: Time.now.since(1.hour)}}), method: :patch do %>
+      <%= link_to worktime_path(@worktime, params: {worktime: {start_breaktime: Time.now, end_breaktime: Time.now.since(1.hour)}}), method: :patch do %>
         <div class="btn btn-default">休憩開始</div>
       <% end %>
-      <%= link_to worktime_path(@worktime, params: {worktimes: {end_breaktime: Time.now}}), method: :patch do %>
+      <%= link_to worktime_path(@worktime, params: {worktime: {end_breaktime: Time.now}}), method: :patch do %>
         <div class="btn btn-default">休憩終了</div>
       <% end %>
     <% else %>
