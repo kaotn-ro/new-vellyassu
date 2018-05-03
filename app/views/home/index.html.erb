@@ -3,24 +3,20 @@
     <p>ユーザー名：<%= current_user.username %></p>
  <%end%>
 <p id = time></p>
-
 <nav>
-  <% if user_signed_in? %>
-    <%if @worktime.nil? %>
-      <%= link_to worktimes_path, method: :post do %>
-       <div class="btn btn-default">出勤</div>
-      <% end %>
+  <%if @worktime.present? && user_signed_in? %>
+    <%= link_to worktime_path(@worktime, params: {worktimes: {end_time: Time.now}}), method: :patch do %>
+      <div class="btn btn-default">退勤</div>
     <% end %>
-    <%if @worktime.present? %>
-      <%= link_to worktime_path(@worktime, params: {worktimes: {end_time: Time.now}}), method: :patch do %>
-       <div class="btn btn-default">退勤</div>
-      <% end %>
-      <%= link_to worktime_path(@worktime, params: {worktimes: {start_breaktime: Time.now, end_breaktime: Time.now.since(1.hour)}}), method: :patch do %>
-       <div class="btn btn-default">休憩開始</div>
-      <% end %>
-      <%= link_to worktime_path(@worktime, params: {worktimes: {end_breaktime: Time.now}}), method: :patch do%>
-       <div class="btn btn-default">休憩終了</div>
-      <% end %>
+    <%= link_to worktime_path(@worktime, params: {worktimes: {start_breaktime: Time.now, end_breaktime: Time.now.since(1.hour)}}), method: :patch do %>
+      <div class="btn btn-default">休憩開始</div>
+    <% end %>
+    <%= link_to worktime_path(@worktime, params: {worktimes: {end_breaktime: Time.now}}), method: :patch do%>
+      <div class="btn btn-default">休憩終了</div>
+    <% end %>
+  <%else%>
+    <%= link_to worktimes_path, method: :post do %>
+      <div class="btn btn-default">出勤</div>
     <% end %>
   <% end %>
 </nav>
