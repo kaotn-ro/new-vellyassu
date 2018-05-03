@@ -42,7 +42,7 @@ class WorktimesController < ApplicationController
 
   private
   def worktime_params
-    params.require(:worktimes).permit(:start_time, :end_time, :start_breaktime,
+    params.require(:worktime).permit(:start_time, :end_time, :start_breaktime,
                                       :end_breaktime, :active, :work)
   end
 
