@@ -1,0 +1,78 @@
+<p1>出勤一覧</p1>
+</br>
+<li class="dropdown">
+  <% start_month = @season.months_ago(6) %>
+  <%= link_to "⇦", worktimes_path(season: @season.prev_month.strftime('%Y-%m')), method: :get %>
+  <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+     aria-haspopup="true" aria-expanded="false">
+    <%= @season.strftime('%Y年%m月度') %><span class="caret"></span></a>
+  <ul class="dropdown-menu">
+    <% 1.upto 12 do |m| %>
+      <% month = start_month.months_since(m) %>
+      <li><%= link_to month.strftime('%Y年%m月度'), worktimes_path(season: month.strftime('%Y-%m')) %></li>
+    <% end %>
+  </ul>
+  <%= link_to "⇨", worktimes_path(season: @season.next_month.strftime('%Y-%m')), method: :get %>
+</li>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>日付</th>
+      <th>勤務区分</th>
+      <th>出勤時間</th>
+      <th>退勤時間</th>
+      <th>休憩開始時間</th>
+      <th>休憩終了時間</th>
+    </tr>
+  </thead>
+  <% @worktimes.each do |work| %>
+    <tbody>
+      <tr>
+        <td>
+          <% if work.start_time.blank? %>
+            */*
+          <% else %>
+            <%= work.start_time.strftime('%m/%d') %>
+          <% end %>
+          <%= link_to "編集", edit_worktime_path(work) %>
+        </td>
+        <td>
+          <% if work.work %>
+            出勤
+          <% else %>
+            欠勤
+          <% end %>
+        </td>
+        <td>
+          <% if work.start_time.blank? %>
+            --:--
+          <% else %>
+            <%= work.start_time.strftime('%R') %>
+          <% end %>
+        </td>
+
+        <td>
+          <% if work.end_time.blank? %>
+            --:--
+          <% else %>
+            <%= work.end_time.strftime('%R') %>
+          <% end %>
+        </td>
+        <td>
+          <% if work.start_breaktime.blank? %>
+            --:--
+          <% else %>
+            <%= work.start_breaktime.strftime('%R') %>
+          <% end %>
+        </td>
+        <td>
+          <% if work.end_breaktime.blank? %>
+            <--:--
+          <%else%>
+            <%= work.end_breaktime.strftime('%R') %>
+          <%end%>
+        </td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>

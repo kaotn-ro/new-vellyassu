@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
-  post 'start_work', to: 'home#start_work'
-  patch 'end_work', to: 'home#end_work'
-  patch 'start_breaktime', to: 'home#start_breaktime'
-  patch 'end_breaktime', to: 'home#end_breaktime'
 
-  resources :worktimes, controller: :worktime, only:[:index, :edit, :update, :destroy]
-  get 'worktimes/:month', to: 'worktimes#index', param: :month
+
+  resources :worktimes, only:[:index, :create, :edit, :update, :destroy]
+  get 'worktimes/:season', to: 'worktimes#index'
   root to: "home#index"
   devise_for :users
   

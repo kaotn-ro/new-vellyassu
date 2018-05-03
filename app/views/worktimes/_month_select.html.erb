@@ -1,0 +1,15 @@
+<%start_month = Time.now.months_ago(6)%>
+<%= link_to "⇦", worktimes_path(season: @season.prev_month.strftime('%Y-%m')), method: :get %>
+
+<%= link_to "⇨", worktimes_path(season: @season.next_month.strftime('%Y-%m')), method: :get %>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <%= @senson.strftime('%Y年%m月度')%> <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <% 1.upto 12 do |m| %>
+      <% month = start_month.months_since(m) %>
+      <li><%= link_to month.strftime('%Y年%m月度'), worktimes_path(season: month.strftime('%Y-%m')) %></li>
+    <% end %>
+  </ul>
+</li>

@@ -2,37 +2,22 @@
 <% if user_signed_in? %>
     <p>ユーザー名：<%= current_user.username %></p>
  <%end%>
-<p id ="time"></p>
-<script type="text/javascript">
-    $(function(){
-        setInterval(function(){
-            var now = new Date();
-            var y = now.getFullYear();
-            var m = now.getMonth() + 1;
-            var d = now.getDate();
-            var w = now.getDay();
-            var wd = ['日', '月', '火', '水', '木', '金', '土'];
-            var h = now.getHours();
-            var mi = now.getMinutes();
-            var s = now.getSeconds();
-            $('#time').text(y + '年' + m + '月' + d + '日' + h + '時' + mi + '分' + s + '秒' + '(' + wd[w] + ')');
-        }, 1000);
-    });
-</script>
+<p id = time></p>
+
 <nav>
   <% if user_signed_in? %>
-    <div class="btn btn-default">
-      <%= link_to "出勤", start_work_path, method: :post %>
-    </div>
-    <div class="btn btn-default">
-      <%= link_to "退勤", end_work_path, method: :patch %>
-    </div>
-    <div class="btn btn-default">
-      <%= link_to "休憩開始", start_breaktime_path, method: :patch %>
-    </div>
-    <div class="btn btn-default">
-      <%= link_to "休憩終了", end_breaktime_path, method: :patch %>
-    </div>
+    <%= link_to worktimes_path, method: :post do %>
+      <div class="btn btn-default">出勤</div>
+    <% end %>
+    <%= link_to worktime_path(@worktime, params: {worktimes: {end_time: Time.now}}), method: :patch do %>
+      <div class="btn btn-default">退勤</div>
+    <% end %>
+    <%= link_to worktime_path(@worktime, params: {worktimes: {start_breaktime: Time.now, end_breaktime: Time.now.since(1.hour)}}), method: :patch do %>
+      <div class="btn btn-default">休憩開始</div>
+    <% end %>
+    <%= link_to worktime_path(@worktime, params: {worktimes: {end_breaktime: Time.now}}), method: :patch do%>
+      <div class="btn btn-default">休憩終了</div>
+    <% end %>
   <% end %>
 </nav>
 

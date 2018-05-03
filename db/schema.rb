@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419091228) do
+ActiveRecord::Schema.define(version: 20180329044456) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -32,15 +32,17 @@ ActiveRecord::Schema.define(version: 20180419091228) do
   end
 
   create_table "worktimes", force: :cascade do |t|
-    t.string "username"
-    t.datetime "str_time"
+    t.integer "user_id"
+    t.datetime "start_time", null: false
     t.datetime "end_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "start_breaktime"
-    t.datetime "end_breaktime"
+    t.datetime "start_breaktime", null: false
+    t.datetime "end_breaktime", null: false
+    t.boolean "worktimes", default: false
     t.boolean "work", default: false
     t.boolean "active", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_worktimes_on_user_id"
   end
 
 end
