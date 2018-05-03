@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 20180329044456) do
     t.datetime "end_time"
     t.datetime "start_breaktime", null: false
     t.datetime "end_breaktime", null: false
-    t.boolean "worktimes", default: false
     t.boolean "work", default: false
     t.boolean "active", default: false
     t.datetime "created_at", null: false

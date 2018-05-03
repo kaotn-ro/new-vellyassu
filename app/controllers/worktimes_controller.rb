@@ -11,12 +11,11 @@ class WorktimesController < ApplicationController
     end
     start_day = @season.beginning_of_month
     end_day = @season.end_of_month
-    @worktimes = Worktime.where(start_time: start_day..end_day).all
+    @worktimes = current_user.worktimes.where(start_time: start_day..end_day).all
   end
 
   def create
-    @user_id = User.find(current_user.id).id
-    Worktime.create(user_id: @user_id, start_time: Time.now,
+    current_user.worktimes.create(start_time: Time.now,
                     start_breaktime: Time.now.since(2.hour), end_breaktime: Time.now.since(3.hour), work: true)
     redirect_to :root
 
@@ -32,13 +31,13 @@ class WorktimesController < ApplicationController
       flash[:success] = "updated"
       redirect_to :root
     else
-      render 'edit'
+      redirect_to action: :edit
     end
   end
 
   def destroy
     Worktime.find(params[:id]).destroy
-    render 'index'
+    redirect_to action: :index
   end
 
   private

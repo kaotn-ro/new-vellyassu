@@ -6,8 +6,8 @@ class CreateWorktimes < ActiveRecord::Migration[5.1]
       t.datetime :end_time, null: true, default:nil
       t.datetime :start_breaktime, null: false, default:nil
       t.datetime :end_breaktime, null: false, default:nil
-      t.boolean :worktimes, :work, default: false
-      t.boolean :worktimes, :active, default: false
+      t.boolean :work, default: false
+      t.boolean :active, default: false
 
       t.timestamps
     end
