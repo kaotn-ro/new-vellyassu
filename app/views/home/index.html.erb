@@ -6,10 +6,12 @@
 
 <nav>
   <% if user_signed_in? %>
-    <%= link_to worktimes_path, method: :post do %>
-      <div class="btn btn-default">出勤</div>
+    <%if @worktime.nil? %>
+      <%= link_to worktimes_path, method: :post do %>
+       <div class="btn btn-default">出勤</div>
+      <% end %>
     <% end %>
-    <%if current_user.worktimes.count != 0 %>
+    <%if @worktime.present? %>
       <%= link_to worktime_path(@worktime, params: {worktimes: {end_time: Time.now}}), method: :patch do %>
        <div class="btn btn-default">退勤</div>
       <% end %>

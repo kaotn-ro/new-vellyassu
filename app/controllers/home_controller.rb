@@ -1,8 +1,7 @@
 class HomeController < ApplicationController
   def index
-    if user_signed_in? && current_user.worktimes.count != 0
-
-      @worktime = current_user.worktimes.order(created_at: :desc).last
+    if user_signed_in?
+      @worktime = current_user.last_worktime
 
     end
   end

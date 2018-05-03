@@ -19,4 +19,7 @@ class User < ApplicationRecord
   end
 
 
+  def last_worktime
+    self.worktimes.where(end_time: nil).order(created_at: :desc).first
+  end
 end
