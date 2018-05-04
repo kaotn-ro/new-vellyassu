@@ -11,7 +11,7 @@ class WorktimesController < ApplicationController
     end
     start_day = @season.beginning_of_month
     end_day = @season.end_of_month
-    @worktimes = current_user.worktimes.where(start_time: start_day..end_day).all
+    @worktimes = current_user.worktimes.where(start_time: start_day..end_day)
   end
 
   def create

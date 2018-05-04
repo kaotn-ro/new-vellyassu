@@ -37,7 +37,7 @@
   <%= link_to :back do %>
     <div class="btn btn-default">戻る</div>
   <% end %>
-  <%= link_to worktimes_path(@worktime), method: delete do %>
+  <%= link_to worktime_path(@worktime), method: :delete do %>
     <div class="btn btn-default">削除</div>
   <% end %>
   <%= f.submit "更新" %>
