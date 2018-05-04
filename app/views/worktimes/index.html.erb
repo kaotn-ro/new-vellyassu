@@ -1,20 +1,7 @@
 <p1>出勤一覧</p1>
 </br>
-<li class="dropdown">
-  <% start_month = @season.months_ago(6) %>
-  <%= link_to "⇦", worktimes_path(season: @season.prev_month.strftime('%Y-%m')), method: :get %>
-  <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-     aria-haspopup="true" aria-expanded="false">
-    <%= @season.strftime('%Y年%m月度') %><span class="caret"></span></a>
-  <ul class="dropdown-menu">
-    <% 1.upto 12 do |m| %>
-      <% month = start_month.months_since(m) %>
-      <li><%= link_to month.strftime('%Y年%m月度'), worktimes_path(season: month.strftime('%Y-%m')) %></li>
-    <% end %>
-  </ul>
-  <%= link_to "⇨", worktimes_path(season: @season.next_month.strftime('%Y-%m')), method: :get %>
-</li>
-<table class="table table-striped">
+<%= render 'month_select' %>
+<table class="table table-bordered ">
   <thead>
     <tr>
       <th>日付</th>
@@ -34,6 +21,7 @@
           <% else %>
             <%= work.start_time.strftime('%m/%d') %>
           <% end %>
+          <br/>
           <%= link_to "編集", edit_worktime_path(work) %>
         </td>
         <td>
@@ -50,7 +38,6 @@
             <%= work.start_time.strftime('%R') %>
           <% end %>
         </td>
-
         <td>
           <% if work.end_time.blank? %>
             --:--
