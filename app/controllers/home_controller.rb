@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     if user_signed_in?
       @worktime = current_user.last_worktime
       if @worktime.present?
-        @rest_time = @worktime.last_resttime
+        @rest_time = @worktime.last_rest_time
       end
     end
   end
