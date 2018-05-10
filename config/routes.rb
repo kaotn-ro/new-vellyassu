@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :worktimes, only:[:index, :create, :edit, :update, :destroy] do
+    resources :rest_times, only:[:create, :update]
+  end
 
-  resources :worktimes, only:[:index, :create, :edit, :update, :destroy]
   get 'worktimes/:season', to: 'worktimes#index'
   root to: "home#index"
   devise_for :users
