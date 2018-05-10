@@ -5,8 +5,9 @@ class RestTimesController < ApplicationController
   end
 
   def update
-    @resttime = RestTime.find(params[:id])
-    @resttime.update_attributes(resttime_params)
+    @rest_time = RestTime.find(params[:id])
+    @rest_time.update_attributes(resttime_params)
+    @rest_time.errors.messages
     redirect_to :root
   end
 
