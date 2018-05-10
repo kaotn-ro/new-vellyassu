@@ -6,13 +6,14 @@ class RestTimesController < ApplicationController
 
   def update
     @rest_time = RestTime.find(params[:id])
-    @rest_time.update_attributes(resttime_params)
+    @rest_time.update_attributes(rest_time_params)
+    flash[:error]
     @rest_time.errors.messages
     redirect_to :root
   end
 
   private
-  def resttime_params
+  def rest_time_params
     params.require(:rest_times).permit(:end_time)
   end
 end
