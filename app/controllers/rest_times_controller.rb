@@ -1,13 +1,14 @@
 class RestTimesController < ApplicationController
   def create
-    RestTime.create(worktime_id: params[:worktime_id], start_time: Time.now)
+    rest_time = RestTime.new(worktime_id: params[:worktime_id], start_time: Time.now)
+    flash[:warning] = rest_time.errors.full_messages unless rest_time.save
     redirect_to :root
+
   end
 
   def update
     @rest_time = RestTime.find(params[:id])
     @rest_time.update_attributes(rest_time_params)
-    flash[:error] = @rest_time.errors.messages
     redirect_to :root
   end
 
