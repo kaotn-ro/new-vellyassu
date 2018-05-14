@@ -2,7 +2,7 @@
 <% if user_signed_in? %>
   <p>ユーザー名：<%= current_user.username %></p>
 <% end %>
-<p id = "time" dafult = " <%= Time.now %>" ></p>
+<p id = "time" ><%= Time.now.strftime('%Y年%m月%d日%H:%M:%S') %></p>
 <nav>
   <% if user_signed_in? %>
     <% if @worktime.present? %>
