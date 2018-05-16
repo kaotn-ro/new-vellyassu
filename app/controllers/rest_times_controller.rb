@@ -11,7 +11,7 @@ class RestTimesController < ApplicationController
     if @rest_time.update_attributes(rest_time_params)
       redirect_to :root, success: "休憩終了しました！"
     else
-      redirect_to :root, danger: "休憩終了できませんでした！"
+      redirect_to :root, danger: @rest_time.errors.full_messages
     end
 
   end

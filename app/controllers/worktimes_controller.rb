@@ -32,7 +32,7 @@ class WorktimesController < ApplicationController
       redirect_to :root, success: "お疲れ様でした！"
 
     else
-      redirect_to action: :edit
+      redirect_to action: :edit, danger: @worktime.errors.full_messages
     end
   end
 
