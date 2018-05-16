@@ -37,13 +37,21 @@
         <td>
           <%= work.end_time.blank? ? "--:--" : work.end_time.strftime('%R') %>
         </td>
+        <% count = 3%>
         <% work.rest_times.each do |rest| %>
+          <% count-=1 %>
           <td>
             <%= rest.start_time.blank? ? "--:--" : rest.start_time.strftime('%R') %>
           </td>
           <td>
             <%= rest.end_time.blank? ? "--:--" : rest.end_time.strftime('%R') %>
           </td>
+        <% end %>
+        <% if count != 0 %>
+          <% count.times do%>
+            <td>--:--</td>
+            <td>--:--</td>
+          <% end %>
         <% end %>
         <td><%= work.rest_times.sum(:start_time) %></td>
       </tr>

@@ -3,7 +3,6 @@ class RestTimesController < ApplicationController
     rest_time = RestTime.new(worktime_id: params[:worktime_id], start_time: Time.now)
     flash[:warning] = rest_time.errors.full_messages unless rest_time.save
     redirect_to :root
-
   end
 
   def update
@@ -13,7 +12,6 @@ class RestTimesController < ApplicationController
     else
       redirect_to :root, danger: '休憩終了できませんでした！'
     end
-
   end
 
   private
