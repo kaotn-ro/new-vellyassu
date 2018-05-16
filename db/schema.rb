@@ -44,8 +44,6 @@ ActiveRecord::Schema.define(version: 20180510035736) do
     t.bigint "user_id"
     t.datetime "start_time", null: false
     t.datetime "end_time"
-    t.datetime "start_breaktime", null: false
-    t.datetime "end_breaktime", null: false
     t.boolean "work", default: false
     t.boolean "active", default: false
     t.datetime "created_at", null: false

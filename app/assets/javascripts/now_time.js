@@ -2,7 +2,7 @@ $(function () {
   setInterval(function () {
     var now = new Date();
     var year = now.getFullYear();
-    var month = ("0" + now.getMonth() + 1).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
     var day = ("0" + now.getDate()).slice(-2);
     var week_day = now.getDay();
     var week = ['日', '月', '火', '水', '木', '金', '土'];
