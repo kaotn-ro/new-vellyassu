@@ -36,6 +36,4 @@ gem 'devise-bootstrap-views'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'jquery-rails'
-
 gem 'bootstrap-sass', '3.3.7'
-

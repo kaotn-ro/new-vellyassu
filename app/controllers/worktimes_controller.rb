@@ -15,8 +15,9 @@ class WorktimesController < ApplicationController
   end
 
   def create
-    current_user.worktimes.create(start_time: Time.now,
-                    start_breaktime: Time.now.since(2.hour), end_breaktime: Time.now.since(3.hour), work: true)
+    time = Time.now
+    current_user.worktimes.create(start_time: time,
+                    start_breaktime: time.since(2.hour), end_breaktime: time.since(3.hour), work: true)
     redirect_to :root
 
   end
@@ -28,10 +29,10 @@ class WorktimesController < ApplicationController
   def update
     @worktime = Worktime.find(params[:id])
     if @worktime.update_attributes(worktime_params)
-      flash[:success] = "updated"
-      redirect_to :root
+      redirect_to :root, success: "お疲れ様でした！"
+
     else
-      redirect_to action: :edit
+      redirect_to action: :edit, danger: @worktime.errors.full_messages
     end
   end
 
