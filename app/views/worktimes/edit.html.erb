@@ -29,7 +29,7 @@
           <% @worktime.rest_times.each do |rest_time| %>
             <%= f.fields_for :rest_times, rest_time do |i| %>
               <%= i.time_select :start_time, default: rest_time.start_time.strftime('%H%M') %>~
-              <%= i.time_select :end_time, default: rest_time.end_time.strftime('%H%M') %></br>
+              <%= i.time_select :end_time, default: rest_time.end_time.blank? ? nil : rest_time.end_time.strftime('%H%M') %></br>
             <% end %>
           <% end %>
         </td>

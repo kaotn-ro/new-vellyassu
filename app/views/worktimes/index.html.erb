@@ -45,7 +45,9 @@
           <td>
             <%= rest.end_time.blank? ? "--:--" : rest.end_time.strftime('%R') %>
           </td>
-          <% sum += rest.end_time - rest.start_time %>
+          <% unless rest.end_time.blank? %>
+            <% sum += rest.end_time - rest.start_time %>
+          <% end %>
         <% end %>
         <% count = work.rest_times.count(:id) %>
         <% if count != 3 %>
