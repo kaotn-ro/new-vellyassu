@@ -11,7 +11,7 @@
       <% 1.upto(3) do |i|%>
         <th colspan = "2" >休憩時間<%= i %></th>
       <%end%>
-      <th rowspan="2"> 合計</th>
+      <th rowspan="2"　>合計休憩時間</th>
     </tr>
     <tr>
       <% 3.times do |i|%>
@@ -37,23 +37,24 @@
         <td>
           <%= work.end_time.blank? ? "--:--" : work.end_time.strftime('%R') %>
         </td>
-        <% count = 3%>
+        <% sum = 0 %>
         <% work.rest_times.each do |rest| %>
-          <% count-=1 %>
           <td>
             <%= rest.start_time.blank? ? "--:--" : rest.start_time.strftime('%R') %>
           </td>
           <td>
             <%= rest.end_time.blank? ? "--:--" : rest.end_time.strftime('%R') %>
           </td>
+          <% sum += rest.end_time - rest.start_time %>
         <% end %>
-        <% if count != 0 %>
-          <% count.times do%>
+        <% count = work.rest_times.count(:id) %>
+        <% if count != 3 %>
+          <% (3 - count).times do%>
             <td>--:--</td>
             <td>--:--</td>
           <% end %>
         <% end %>
-        <td><%= work.rest_times.sum(:start_time) %></td>
+        <td><%= Time.at(sum).utc.strftime('%R') %></td>
       </tr>
     </tbody>
   <% end %>

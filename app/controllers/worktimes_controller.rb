@@ -30,7 +30,7 @@ class WorktimesController < ApplicationController
     if @worktime.update(worktime_params)
       redirect_to :root, success: "お疲れ様でした！"
     else
-      redirect_to action: :edit
+      redirect_to action: :edit, danget: @worktime.errors.full_messages
     end
   end
 
