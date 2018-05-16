@@ -8,8 +8,12 @@ class RestTimesController < ApplicationController
 
   def update
     @rest_time = RestTime.find(params[:id])
-    @rest_time.update_attributes(rest_time_params)
-    redirect_to :root
+    if @rest_time.update_attributes(rest_time_params)
+      redirect_to :root, success: "休憩終了しました！"
+    else
+      redirect_to :root, danger: "休憩終了できませんでした！"
+    end
+
   end
 
   private
