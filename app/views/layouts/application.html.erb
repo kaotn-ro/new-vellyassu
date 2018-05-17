@@ -7,8 +7,6 @@
 
   <body>
     <%= render 'layouts/header' %>
-    <p class = "notice"><%= notice %></p>
-    <p class = "alert"><%= alert %></p>
       <% flash.each do |name, msg| %>
       <div class="alert alert-<%= name %>">
         <a class="close" data-dismiss="alert">×</a>

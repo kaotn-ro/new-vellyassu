@@ -16,7 +16,7 @@ class WorktimesController < ApplicationController
 
   def create
     time = Time.now
-    ccurrent_user.worktimes.create(start_time: time, work: true)
+    current_user.worktimes.create(start_time: time, work: true)
     redirect_to :root
 
   end
