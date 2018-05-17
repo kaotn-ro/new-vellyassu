@@ -1,6 +1,5 @@
 class RestTime < ApplicationRecord
   belongs_to :worktime
-
   validate :cannot_save_over_3times, on: :create
 
   private
