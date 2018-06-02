@@ -3,63 +3,63 @@
 <%= render 'month_select' %>
 <table class="table table-bordered ">
   <thead>
-    <tr>
-      <th>日付</th>
-      <th>勤務区分</th>
-      <th>出勤時間</th>
-      <th>退勤時間</th>
-      <th>休憩開始時間</th>
-      <th>休憩終了時間</th>
-    </tr>
+  <tr>
+    <th rowspan="2">日付</th>
+    <th rowspan="2">勤務区分</th>
+    <th rowspan="2">出勤時間</th>
+    <th rowspan="2">退勤時間</th>
+    <% 1.upto(3) do |i| %>
+      <th colspan="2">休憩時間<%= i %></th>
+    <% end %>
+    <th rowspan="2"> 合計休憩時間</th>
+  </tr>
+  <tr>
+    <% 3.times do |i| %>
+      <th>開始
+        <% i %></th>
+      <th>終了
+        <% i %></th>
+    <% end %>
+  </tr>
   </thead>
   <% @worktimes.each do |work| %>
     <tbody>
-      <tr>
+    <tr>
+      <td>
+        <%= work.start_time.blank? ? "*/*" : work.start_time.strftime('%m/%d') %>
+        <br/>
+        <%= link_to "編集", edit_worktime_path(work) %>
+      </td>
+      <td>
+        <%= work.work ? "出勤" : "欠勤" %>
+      </td>
+      <td>
+        <%= work.start_time.blank? ? "--:--" : work.start_time.strftime('%R') %>
+      </td>
+      <td>
+        <%= work.end_time.blank? ? "--:--" : work.end_time.strftime('%R') %>
+      </td>
+      <% sum = 0 %>
+      <% work.rest_times.each do |rest| %>
         <td>
-          <% if work.start_time.blank? %>
-            */*
-          <% else %>
-            <%= work.start_time.strftime('%m/%d') %>
-          <% end %>
-          <br/>
-          <%= link_to "編集", edit_worktime_path(work) %>
+          <%= rest.start_time.blank? ? "--:--" : rest.start_time.strftime('%R') %>
         </td>
         <td>
-          <% if work.work %>
-            出勤
-          <% else %>
-            欠勤
-          <% end %>
+          <%= rest.end_time.blank? ? "--:--" : rest.end_time.strftime('%R') %>
         </td>
-        <td>
-          <% if work.start_time.blank? %>
-            --:--
-          <% else %>
-            <%= work.start_time.strftime('%R') %>
-          <% end %>
-        </td>
-        <td>
-          <% if work.end_time.blank? %>
-            --:--
-          <% else %>
-            <%= work.end_time.strftime('%R') %>
-          <% end %>
-        </td>
-        <td>
-          <% if work.start_breaktime.blank? %>
-            --:--
-          <% else %>
-            <%= work.start_breaktime.strftime('%R') %>
-          <% end %>
-        </td>
-        <td>
-          <% if work.end_breaktime.blank? %>
-            <--:--
-          <%else%>
-            <%= work.end_breaktime.strftime('%R') %>
-          <%end%>
-        </td>
-      </tr>
+        <% unless rest.end_time.blank? %>
+          <% sum += rest.end_time - rest.start_time %>
+        <% end %>
+      <% end %>
+      <% count = work.rest_times.count(:id) %>
+      <% if count != 3 %>
+        <% (3 - count).times do %>
+          <td>--:--</td>
+          <td>--:--</td>
+        <% end %>
+      <% end %>
+      <td><%= Time.at(sum).utc.strftime('%R') %></td>
+    </tr>
     </tbody>
   <% end %>
 </table>

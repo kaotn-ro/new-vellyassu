@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180510035736) do
+ActiveRecord::Schema.define(version: 20180517094541) do
 
   create_table "rest_times", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "worktime_id", null: false
@@ -44,8 +44,6 @@ ActiveRecord::Schema.define(version: 20180510035736) do
     t.bigint "user_id"
     t.datetime "start_time", null: false
     t.datetime "end_time"
-    t.datetime "start_breaktime", null: false
-    t.datetime "end_breaktime", null: false
     t.boolean "work", default: false
     t.boolean "active", default: false
     t.datetime "created_at", null: false
