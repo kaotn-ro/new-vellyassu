@@ -20,8 +20,10 @@
       <td><%= f.time_select :start_time, default: @worktime.start_time.strftime('%H%M'), :minute_step => 1 %></td>
     </tr>
     <tr>
-      <td><%= f.label :end_time, "退勤時刻" %></td>
-      <td><%= f.time_select :end_time, :minute_step => 1, include_blank: :true %></td>
+      <div class = end_time>
+        <td><%= f.label :end_time, "退勤時刻" %></td>
+        <td><%= f.time_select :end_time, :minute_step => 1, include_blank: :true %></td>
+      </div>
     </tr>
     <tr>
       <td><%= f.label :start_time, "休憩時間" %></td>
@@ -29,7 +31,7 @@
         <% @worktime.rest_times.each do |rest_time| %>
           <%= f.fields_for :rest_times, rest_time do |i| %>
             <%= i.time_select :start_time, default: rest_time.start_time.strftime('%H%M') %>~
-            <%= i.time_select :end_time, default: rest_time.end_time.blank? ? nil : rest_time.end_time.strftime('%H%M') %></br>
+            <%= i.time_select :end_time, :minute_step => 1, include_blank: :true %></br>
           <% end %>
         <% end %>
       </td>
